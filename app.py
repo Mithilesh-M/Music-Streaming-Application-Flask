@@ -100,14 +100,18 @@ def music_create(id):
     if request.method == 'POST':
         music_title = request.form['title']
         music_artist = request.form['artist']
-        songUUID = str(uuid.uuid1())
-        new_music = Music(title=music_title, artist=music_artist, album_id=album.id, filename=(songUUID+'.mp3'))
+        song = request.files['song']
+        if song:
+            songUUID = str(uuid.uuid1())
+            new_music = Music(title=music_title, artist=music_artist, album_id=album.id, filename=(songUUID+'.mp3'))
+            full_filename = os.path.join(app.config['UPLOAD_FOLDER'], (songUUID+'.mp3'))
+        else:
+            new_music = Music(title=music_title, artist=music_artist, album_id=album.id)
         try:
             db.session.add(new_music)
             db.session.commit()
-            song = request.files['song']
-            full_filename = os.path.join(app.config['UPLOAD_FOLDER'], (songUUID+'.mp3'))
-            song.save(full_filename)
+            if song:
+                song.save(full_filename)
             return redirect('/Album/Music/'+str(album.id))
         except:
             return 'Issue in adding the music'

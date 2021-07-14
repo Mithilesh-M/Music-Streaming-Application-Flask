@@ -155,5 +155,15 @@ def music_update(id):
         return render_template('music-update.html', music=music, album=album)
 
 
+@app.route('/Album/Music/Open/<int:id>', methods=['POST', 'GET'])
+def music_open(id):
+    music = Music.query.get_or_404(id)
+    album_id = music.album_id
+    album = Album.query.get_or_404(album_id)
+    song = 'music/'+ str(music.filename)
+    print(song)
+    return render_template('music-open.html', music=music, album=album, song=song)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

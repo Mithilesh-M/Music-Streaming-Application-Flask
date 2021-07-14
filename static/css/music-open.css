@@ -1,0 +1,8 @@
+.row-form{
+    display: block;
+}
+
+.row-col{
+    margin: 0 2% 1% 0;
+    display: inline-block;
+}

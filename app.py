@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
@@ -40,6 +40,21 @@ class Music(db.Model):
 def index():
     albums = Album.query.order_by(Album.date_created).all()
     return render_template('index.html', albums=albums)
+
+
+@app.route('/Album/Create', methods=['POST', 'GET'])
+def album_create():
+    if request.method == 'POST':
+        album_title = request.form['title']
+        new_album = Album(title=album_title)
+        try:
+            db.session.add(new_album)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'Issue in adding the album'
+    else:
+        return render_template('album-create.html')
 
 
 if __name__ == "__main__":

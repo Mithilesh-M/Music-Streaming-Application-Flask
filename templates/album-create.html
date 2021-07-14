@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>ADD ALBUM</h2>
+    <form action="/Album/Create" method="POST">
+        <h3>Enter Album Name</h3>
+        <input type="text" maxlength="250" name="title" id="title">
+        <br><br>
+        <input type="submit" value="Add Album">
+    </form>
+{% endblock %}

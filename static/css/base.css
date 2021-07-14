@@ -1,0 +1,46 @@
+h1{
+    text-align: center;
+}
+
+.header{
+    padding: .5%;
+    background-color: grey;
+}
+
+.nav{
+    padding: .5%;
+    background-color: grey;
+}
+
+.nav button{
+    width: 20%;
+}
+
+.nav form {
+    margin: 0 .25% 0 10%;
+    display: inline-block;
+    width: 50%;
+}
+
+.nav form input{
+    display: inline-block;
+    width: 75%;
+}
+
+.nav .search-button{
+    width: 20%;
+}
+
+table {
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
@@ -34,6 +34,12 @@ class Music(db.Model):
 
     def __repr__(self):
         return self.title
+
+
+@app.route('/', methods=['GET'])
+def index():
+    albums = Album.query.order_by(Album.date_created).all()
+    return render_template('index.html', albums=albums)
 
 
 if __name__ == "__main__":

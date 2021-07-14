@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block header %} {% endblock %}
+</head>
+<body>
+    <div class="header">
+        <h1>MUSIC STREAMING WEB APPLICATION</h1>
+    </div>
+    <div class="nav">
+        <button onclick="window.location.href='/';"><b>ALL ALBUM</b></button>
+        <form action="/Search" method="POST">
+            <input type="text" maxlength="250" name="search" id="search">
+            <input class="search-button" type="submit" value="SEARCH">
+        </form>
+    </div>
+    {% block body %} {% endblock %}
+</body>
+</html>

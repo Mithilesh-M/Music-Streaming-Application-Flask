@@ -131,5 +131,29 @@ def music_delete(id):
         return render_template('music-delete.html', music=music)
 
 
+@app.route('/Album/Music/Update/<int:id>', methods=['POST', 'GET'])
+def music_update(id):
+    music = Music.query.get_or_404(id)
+    album_id = music.album_id
+    album = Album.query.get_or_404(album_id)
+    if request.method == 'POST':
+        music.title = request.form['title']
+        music.artist = request.form['artist']
+        song = request.files['song']
+        if song:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
+            songUUID = str(uuid.uuid1())
+            full_filename = os.path.join(app.config['UPLOAD_FOLDER'], (songUUID + '.mp3'))
+            song.save(full_filename)
+            music.filename = songUUID+'.mp3'
+        try:
+            db.session.commit()
+            return redirect('/Album/Music/'+str(album_id))
+        except:
+            return 'Issue in deleting the music'
+    else:
+        return render_template('music-update.html', music=music, album=album)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -115,5 +115,21 @@ def music_create(id):
         return render_template('music-create.html', album=album)
 
 
+@app.route('/Album/Music/Delete/<int:id>', methods=['POST', 'GET'])
+def music_delete(id):
+    music = Music.query.get_or_404(id)
+    album_id = music.album_id
+    if request.method == 'POST':
+        try:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
+            db.session.delete(music)
+            db.session.commit()
+            return redirect('/Album/Music/'+str(album_id))
+        except:
+            return 'Issue in deleting the music'
+    else:
+        return render_template('music-delete.html', music=music)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

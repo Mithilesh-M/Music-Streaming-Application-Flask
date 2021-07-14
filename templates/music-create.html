@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/music-create.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h2>ADD MUSIC</h2>
+    <h3>Add music in {{ album.title }} album</h3>
+    <form action="/Album/Music/Create/{{ album.id }}" method="POST" enctype="multipart/form-data">
+        <div class="row-form">
+        <h3  class="row-col">Enter Music Name</h3>
+        <input class="row-col" type="text" maxlength="250" name="title" id="title">
+        </div>
+        <div class="row-form">
+        <h3 class="row-col">Enter Music Artist Name</h3>
+        <input class="row-col" type="text" maxlength="250" name="artist" id="artist">
+        </div>
+        <div class="row-form">
+        <h3 class="row-col">Upload song</h3>
+        <input class="row-col" type="file" accept=".mp3"name="song" id="song">
+        </div>
+        <br><br>
+        <input type="submit" value="Add Music">
+    </form>
+{% endblock %}

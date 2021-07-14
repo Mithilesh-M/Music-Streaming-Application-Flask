@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
 import os
+import uuid
+
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static', 'music')
@@ -90,6 +92,27 @@ def music_list(id):
     album = Album.query.get_or_404(id)
     musics = Music.query.filter(album.id == Music.album_id).order_by(Music.date_created).all()
     return render_template('music-list.html', musics=musics, album=album)
+
+
+@app.route('/Album/Music/Create/<int:id>', methods=['POST', 'GET'])
+def music_create(id):
+    album = Album.query.get_or_404(id)
+    if request.method == 'POST':
+        music_title = request.form['title']
+        music_artist = request.form['artist']
+        songUUID = str(uuid.uuid1())
+        new_music = Music(title=music_title, artist=music_artist, album_id=album.id, filename=(songUUID+'.mp3'))
+        try:
+            db.session.add(new_music)
+            db.session.commit()
+            song = request.files['song']
+            full_filename = os.path.join(app.config['UPLOAD_FOLDER'], (songUUID+'.mp3'))
+            song.save(full_filename)
+            return redirect('/Album/Music/'+str(album.id))
+        except:
+            return 'Issue in adding the music'
+    else:
+        return render_template('music-create.html', album=album)
 
 
 if __name__ == "__main__":

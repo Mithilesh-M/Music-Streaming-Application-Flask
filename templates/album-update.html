@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>UPDATE ALBUM</h2>
+    <form action="/Album/Update/{{ album.id }}" method="POST">
+        <h3>Enter Album Name</h3>
+        <input type="text" maxlength="250" name="title" id="title" value="{{ album.title }}">
+        <br><br>
+        <input type="submit" value="Update Album">
+    </form>
+{% endblock %}

@@ -28,5 +28,10 @@
         Your browser does not support the audio element.
     </audio>
     <br><br>
-    <a href="{{ url_for( 'static', filename=song) }}" download><button style="width: 20%"><b>DOWNLOAD</b></button></a>
-{% endblock %}
+    {% if music.filename %}
+        <a href="{{ url_for( 'static', filename=song) }}" download><button style="width: 20%"><b>DOWNLOAD</b></button></a>
+    {% else %}
+        <h4>No song Uploaded</h4>
+        <h4>So, Cannot be played and downloaded</h4>
+        <a href="{{ url_for( 'static', filename=song) }}" download><button disabled style="width: 20%"><b>DOWNLOAD</b></button></a>
+    {% endif %}{% endblock %}

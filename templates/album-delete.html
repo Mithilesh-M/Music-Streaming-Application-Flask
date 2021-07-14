@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>DELETE ALBUM</h2>
+    <h3>Are you sure to delete {{ album.title }} album? </h3>
+    <form action="/Album/Delete/{{ album.id }}" method="POST">
+        <input type="submit" value="Delete Album">
+    </form>
+{% endblock %}

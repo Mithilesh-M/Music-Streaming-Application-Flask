@@ -57,5 +57,19 @@ def album_create():
         return render_template('album-create.html')
 
 
+@app.route('/Album/Delete/<int:id>', methods=['POST', 'GET'])
+def album_delete(id):
+    album = Album.query.get_or_404(id)
+    if request.method == 'POST':
+        try:
+            db.session.delete(album)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'Issue in deleting the album'
+    else:
+        return render_template('album-delete.html', album=album)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

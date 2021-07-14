@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h2>SEARCH</h2>
+    <h3>For '{{ string }}'</h3>
+    <h2>Search By Album</h2>
+    {% if albums %}
+    <table>
+      <tr>
+        <th>Album Title</th>
+          <th>Created On</th>
+          <th>Open</th>
+        <th>Update</th>
+          <th>Delete</th>
+      </tr>
+        {% for album in albums %}
+      <tr>
+        <td>{{ album.title }}</td>
+        <td>{{ album.date_created.date() }}</td>
+          <td><button onclick="window.location.href='/Album/Music/{{ album.id }}';">OPEN</button></td>
+          <td><button onclick="window.location.href='/Album/Update/{{ album.id }}';">UPDATE</button></td>
+          <td><button onclick="window.location.href='/Album/Delete/{{ album.id }}';">DELETE</button></td>
+      </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <h2>No Album found</h2>
+    {% endif %}
+    <h2>Search By Music</h2>
+    {% if musics %}
+    <table>
+      <tr>
+        <th>Music Title</th>
+          <th>Music Artist</th>
+          <th>Created On</th>
+          <th>Open</th>
+        <th>Update</th>
+          <th>Delete</th>
+      </tr>
+        {% for music in musics %}
+      <tr>
+        <td>{{ music.title }}</td>
+          <td>{{ music.artist }}</td>
+        <td>{{ music.date_created.date() }}</td>
+          <td><button onclick="window.location.href='/Album/Music/Open/{{ music.id }}';">OPEN</button></td>
+          <td><button onclick="window.location.href='/Album/Music/Update/{{ music.id }}';">UPDATE</button></td>
+          <td><button onclick="window.location.href='/Album/Music/Delete/{{ music.id }}';">DELETE</button></td>
+      </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <h2>No Music found</h2>
+    {% endif %}
+    <h2>Search By Artist</h2>
+    {% if artists %}
+    <table>
+      <tr>
+        <th>Music Title</th>
+          <th>Music Artist</th>
+          <th>Created On</th>
+          <th>Open</th>
+        <th>Update</th>
+          <th>Delete</th>
+      </tr>
+        {% for music in artists %}
+      <tr>
+        <td>{{ music.title }}</td>
+          <td>{{ music.artist }}</td>
+        <td>{{ music.date_created.date() }}</td>
+          <td><button onclick="window.location.href='/Album/Music/Open/{{ music.id }}';">OPEN</button></td>
+          <td><button onclick="window.location.href='/Album/Music/Update/{{ music.id }}';">UPDATE</button></td>
+          <td><button onclick="window.location.href='/Album/Music/Delete/{{ music.id }}';">DELETE</button></td>
+      </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <h2>No Artist found</h2>
+    {% endif %}
+{% endblock %}

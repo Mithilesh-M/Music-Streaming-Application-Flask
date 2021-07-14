@@ -165,5 +165,14 @@ def music_open(id):
     return render_template('music-open.html', music=music, album=album, song=song)
 
 
+@app.route('/Search', methods=['POST'])
+def search():
+    search_str = request.form['search']
+    albums = Album.query.filter(Album.title.contains(search_str)).order_by(Album.date_created).all()
+    musics = Music.query.filter(Music.title.contains(search_str)).order_by(Music.date_created).all()
+    artists = Music.query.filter(Music.artist.contains(search_str)).order_by(Music.date_created).all()
+    return render_template('music-search.html', albums=albums, musics=musics, artists=artists, string=search_str)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

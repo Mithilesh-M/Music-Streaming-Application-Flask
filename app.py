@@ -85,5 +85,12 @@ def album_update(id):
         return render_template('album-update.html', album=album)
 
 
+@app.route('/Album/Music/<int:id>', methods=['GET'])
+def music_list(id):
+    album = Album.query.get_or_404(id)
+    musics = Music.query.filter(album.id == Music.album_id).order_by(Music.date_created).all()
+    return render_template('music-list.html', musics=musics, album=album)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

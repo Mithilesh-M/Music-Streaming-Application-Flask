@@ -125,7 +125,8 @@ def music_delete(id):
     album_id = music.album_id
     if request.method == 'POST':
         try:
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
+            if music.filename:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
             db.session.delete(music)
             db.session.commit()
             return redirect('/Album/Music/'+str(album_id))

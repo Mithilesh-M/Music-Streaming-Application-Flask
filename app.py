@@ -146,7 +146,8 @@ def music_update(id):
         music.artist = request.form['artist']
         song = request.files['song']
         if song:
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
+            if music.filename:
+                os.remove(os.path.join(app.config['UPLOAD_FOLDER'], music.filename))
             songUUID = str(uuid.uuid1())
             full_filename = os.path.join(app.config['UPLOAD_FOLDER'], (songUUID + '.mp3'))
             song.save(full_filename)
